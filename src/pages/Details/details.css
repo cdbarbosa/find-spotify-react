@@ -1,8 +1,5 @@
 .detailArtist {
-  background-image: url('https://www.sxsw.com/wp-content/uploads/2019/03/Laura-Jane-Grace-Photo-by-Clair-McAllister.jpeg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  opacity: 0.8;
+  background: linear-gradient(to left bottom, white, #498172 80%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -13,36 +10,60 @@
 }
 
 .container {
-  display: grid;
-  grid-template-columns: 0.2fr 1fr;
-  grid-gap: 1rem;
+  display: flex;
+  background: white;
+  padding: 2.5rem;
 }
 
-.detailArtist h2 {
-  text-transform: uppercase;
-}
 
 .photoDetail {
   text-align: center;
 }
 
-.photo {
-  border-radius: .3rem;
+.detail {
+  padding: 1rem;
 }
 
-.detail {
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: .3rem;
+.photo {
+  /* border-radius: .3rem; */
+  width: 300px;
+  margin-top: 1rem;
 }
+
 
 .detail h1 {
-  text-align: center;
+  /* text-align: center; */
+  color: #707070;
+  margin-top: 0;
 }
 
 .detail ul {
   list-style: none;
+  color: #707070;
+  padding-left: 0;
 }
 
 .detail ul li {
   margin-bottom: 1rem;
+  color: #707070;
+}
+
+.container {
+  position: relative;
+}
+
+.container button {
+  border:none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  font-size: 20px;
+}
+
+.container .arrow {
+  color: #707070;
+  position: absolute;
+  top: 10px;
+  left: 1rem;
+  cursor: pointer;
 }

@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { FaArrowLeft } from 'react-icons/fa'
 import './details.css'
 import { Link } from "react-router-dom";
 
 class Details extends Component {
+
   state = {
     images: [],
     generos: []
@@ -36,30 +38,36 @@ class Details extends Component {
         this.setState({ popularidade: json.popularity })
       });
   }
+
+  refreshPage = () => {
+    this.props.history.push("/");
+  }
+
   render() {
     const { name, images, url, total, generos, popularidade } = this.state;
     return (
       <div className="detailArtist">
-        <h2>Perfil do artista</h2>
         <div className="container">
+          <button onClick={this.refreshPage}>
+            <FaArrowLeft className="arrow"></FaArrowLeft>
+          </button>
           <div className="photoDetail">
-            <img src={images} alt="images" width="500" className="photo"></img>
+            <img src={images} alt="images" width="500" className="photo" />
           </div>
           <div className="detail">
             <h1>{name}</h1>
             <ul>
-              <li>Url: {url}</li>
-              <li>Seguidores: {total}</li>
               <li>
-                Gênero: {generos}
+                Url: <a href={url} >{url}</a>
               </li>
+              <li>Seguidores: {total}</li>
+              <li>Gênero: {generos}</li>
               <li>Popularidade: {popularidade}</li>
             </ul>
           </div>
-          {/* <Link to={'/'}><button>Voltar</button></Link> */}
         </div>
       </div>
-    )
+    );
   }
 }
 

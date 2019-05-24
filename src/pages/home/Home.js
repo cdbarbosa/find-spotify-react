@@ -3,10 +3,14 @@ import './home.css';
 import { Link } from "react-router-dom";
 
 class Home extends Component {
+  constructor(props) {
+    super(props)
+    this.procuraSpotify = this.procuraSpotify.bind(this)
+  }
   state = {
     username: [],
     images: [],
-    idArtist: 0,
+    idArtist: [],
     obj: [
       {
         name: "Leela",
@@ -20,13 +24,10 @@ class Home extends Component {
         name: "Ney Alves",
         id: "2UhA8yc1DpFfkutXq5lMah"
       }
-    ]
+    ],
   };
-  componentDidUpdate() {
-    window.addEventListener('load', this.procuraSpotify)
-  }
   componentDidMount() {
-    window.addEventListener('load', this.procuraSpotify)
+    this.procuraSpotify();
   }
 
   procuraSpotify = async () => {
@@ -34,7 +35,7 @@ class Home extends Component {
       const getUrl = `https://api.spotify.com/v1/artists/`;
       const SPOTIFY_SEARCH = getUrl + element.id;
       const accessToken =
-        "BQCCM-0rx8eNVkk_7q4v5JfYmoo8d3nuTO5snAp3pqyS7TU5OScRQDR8hSAA8ORAh7Ul00xIaRQ1Lelt_vu4LxxPtWM0pT5ggN2VfHou4LGJG6SAZ-ZFA0HsQgb3usahgePynu7vKOmMc_HbMuDhsS3UCkKJ_ejx1uh_LXwsPny8ou6Fm5urzjBPkEmZP0fuS-jKkhJq9SYDT_3HaqRlXoBeAqqnxjaTWOFNgFMmS8kZ3Qxahoe1NctKqGq3YCPXwWUUlBeJ6lQ";
+        "BQB_qpmj78RJN7QWncCAoRfkKUdMDg8g18B3RG_M-HEyxnvZsZxfHOSO6v1CQiyljdN3hWIXSz_H0Lu8nHM6dQalw78uabgtY1i5ANtoJZvq4B9Mc6adSm7QNF1jkSOXyOm8Kn60MhVe9apOJliWjXw1F3V1TbGlUncyR_wog41rwqxPVEwhEA3TJt0kmZjgCXAxTd4xBp2PY-SpfA23laLimOxGDLzfmlL88iw8GYL1ypGQ8JamqYadTpQJ94vWpdCx6hzBK4k";
       const myOptions = {
         method: "GET",
         headers: {
@@ -46,10 +47,11 @@ class Home extends Component {
       fetch(SPOTIFY_SEARCH, myOptions)
         .then(response => response.json())
         .then(json => {
+          this.setState({ idArtist: [...this.state.idArtist, json.id] });
           this.setState({ username: [...this.state.username, json.name] });
-          this.setState({ images: [...this.state.images, json.images[0].url]})
+          this.setState({ images: [...this.state.images, json.images[0].url] });
         });
-    })
+    });
   };
 
   onChange = evento => {
@@ -58,14 +60,13 @@ class Home extends Component {
   };
 
   render() {
-    const { username, images, obj } = this.state;
-    
+    const { username, images, obj, idArtist } = this.state;
+
     return (
       <div className="Home">
-        <h1>Selecione um dos artistas abaixo...</h1>
         <div className="cards">
           {images.map((element, key) => (
-            <Link to={`/details/${obj[key].id}`}>
+            <Link to={`/details/${idArtist[key]}`}>
               <div className="card">
                 <img
                   src={element}
@@ -73,7 +74,9 @@ class Home extends Component {
                   alt="images"
                   className="img_artist"
                 />
-                <h2 className="nameArtist">{username[key]}</h2>
+                <div className="name">
+                  <h2 className="nameArtist">{username[key]}</h2>
+                </div>
               </div>
             </Link>
           ))}

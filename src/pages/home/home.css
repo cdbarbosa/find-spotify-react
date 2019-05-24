@@ -27,6 +27,8 @@
 
 .cards {
   display: flex;
+  background: white;
+  /* width: 180vh */
 }
 
 .cards a{
@@ -34,22 +36,34 @@
   color: white;
 }
 .card {
-  margin-top: 4rem;
+  /* margin-top: 4rem;
   margin-right: 1rem;
   background: rgba(0, 0, 0, 0.6);
-  border-radius: .3em;
+  border-radius: .3em; */
   padding: 1rem;
   display: block;
   cursor: pointer;
   height: 300px;
   width: 300px;
+  position: relative;
+  text-align: center;
 }
 
 .img_artist {
-  min-width: 200px;
+  min-width: 300px;
   width: 200px;
 }
 
-.nameArtist {
+.name {
+  position: absolute;
   margin-bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 1rem;
+  width: 269px;
+  top:15rem;
 }
+
+.nameArtist {
+  font-size: 16px;
+}
+
